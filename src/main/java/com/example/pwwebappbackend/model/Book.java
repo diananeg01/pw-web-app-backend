@@ -2,10 +2,7 @@ package com.example.pwwebappbackend.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,16 +11,25 @@ import javax.persistence.Table;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "book_model")
+@Table(name = "model_book")
 public class Book {
     @Id
-    @GeneratedValue
-    private String uuid;
+    @SequenceGenerator(
+            name = "book_sequence",
+            sequenceName = "book_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "book_sequence"
+    )
+    @Column(nullable = false, updatable = false)
+    private Long book_uuid;
 
     private String title;
     private String author;
     private String publishingHouse;
     private String description;
     private String category;
-    private Double price;
+    private String cover;
 }
