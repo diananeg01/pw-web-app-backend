@@ -90,4 +90,10 @@ public class UserServiceImpl implements UserService{
         User user = this.userCrudRepository.findUserByUsername(username).get();
         return user.getFavourite();
     }
+
+    @Override
+    public void deleteUser(Long id) {
+        User user = this.userCrudRepository.findById(id).get();
+        this.userCrudRepository.delete(user);
+    }
 }
