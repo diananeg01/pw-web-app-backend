@@ -1,11 +1,10 @@
 package com.example.pwwebappbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,11 +13,20 @@ import javax.persistence.Table;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "user_model")
+@Table(name = "model_user")
 public class User {
     @Id
-    @GeneratedValue
-    private String uuid;
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
+    @Column(nullable = false, updatable = false)
+    private Long user_uuid;
 
     private String username;
     private String firstname;
@@ -26,4 +34,13 @@ public class User {
     private String email;
     private String password;
     private UserRole userRole;
+
+    @OneToMany
+    @JoinTable(
+            name="user_favourite",
+            joinColumns = @JoinColumn( name="user_uuid"),
+            inverseJoinColumns = @JoinColumn( name="book_uuid")
+    )
+    @JsonIgnore
+    private List<Book> favourite;
 }
