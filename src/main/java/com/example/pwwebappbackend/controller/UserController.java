@@ -55,4 +55,15 @@ public class UserController {
         this.userService.editUser(newUser, oldEmail);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(path = "user/{username}/add-favourites")
+    public ResponseEntity<?> addFavourite(@PathVariable String username, @RequestBody Book book){
+        userService.addFavourite(username, book);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(path = "user/{username}/favourites")
+    public ResponseEntity<List<Book>> getFavourite(@PathVariable String username){
+        return new ResponseEntity<>(userService.getFavourite(username), HttpStatus.OK);
+    }
 }

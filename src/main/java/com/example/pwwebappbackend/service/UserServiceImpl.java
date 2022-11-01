@@ -1,5 +1,6 @@
 package com.example.pwwebappbackend.service;
 
+import com.example.pwwebappbackend.model.Book;
 import com.example.pwwebappbackend.model.User;
 import com.example.pwwebappbackend.model.UserRole;
 import com.example.pwwebappbackend.repo.UserCrudRepository;
@@ -75,5 +76,18 @@ public class UserServiceImpl implements UserService{
             }
             this.userCrudRepository.save(userObj);
         }
+    }
+
+    @Override
+    public void addFavourite(String username, Book book) {
+        User user = this.getUserByUsername(username).get();
+        user.getFavourite().add(book);
+        this.userCrudRepository.save(user);
+    }
+
+    @Override
+    public List<Book> getFavourite(String username) {
+        User user = this.userCrudRepository.findUserByUsername(username).get();
+        return user.getFavourite();
     }
 }
