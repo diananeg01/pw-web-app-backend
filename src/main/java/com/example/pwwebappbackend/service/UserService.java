@@ -15,4 +15,5 @@ public interface UserService {
     void editUser(User newUser, String oldEmail);
     void addFavourite(String username, Book book);
     List<Book> getFavourite(String username);
+    void deleteUser(Long id);
 }

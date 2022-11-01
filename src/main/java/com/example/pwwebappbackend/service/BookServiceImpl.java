@@ -63,4 +63,10 @@ public class BookServiceImpl implements BookService {
             this.bookCrudRepository.save(bookObj);
         }
     }
+
+    @Override
+    public void deleteBook(Long id) {
+        Book book = this.bookCrudRepository.findById(id).get();
+        this.bookCrudRepository.delete(book);
+    }
 }

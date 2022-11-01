@@ -66,4 +66,10 @@ public class UserController {
     public ResponseEntity<List<Book>> getFavourite(@PathVariable String username){
         return new ResponseEntity<>(userService.getFavourite(username), HttpStatus.OK);
     }
+
+    @DeleteMapping(path = "/delete")
+    public ResponseEntity<?> deleteUser(@RequestParam Long id){
+        this.userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
