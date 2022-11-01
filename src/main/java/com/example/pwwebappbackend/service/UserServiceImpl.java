@@ -61,10 +61,18 @@ public class UserServiceImpl implements UserService{
         Optional<User> user = this.userCrudRepository.findUserByEmail(oldEmail);
         if(user.isPresent()){
             User userObj = user.get();
-            userObj.setUsername(newUser.getUsername());
-            userObj.setFirstname(newUser.getFirstname());
-            userObj.setLastname(newUser.getLastname());
-            userObj.setUserRole(newUser.getUserRole());
+            if (newUser.getUsername() != null) {
+                userObj.setUsername(newUser.getUsername());
+            }
+            if (newUser.getFirstname() != null) {
+                userObj.setFirstname(newUser.getFirstname());
+            }
+            if (newUser.getLastname() != null) {
+                userObj.setLastname(newUser.getLastname());
+            }
+            if (newUser.getUserRole().equals(UserRole.ADMIN) || newUser.getUserRole().equals(UserRole.READER)) {
+                userObj.setUserRole(newUser.getUserRole());
+            }
             this.userCrudRepository.save(userObj);
         }
     }

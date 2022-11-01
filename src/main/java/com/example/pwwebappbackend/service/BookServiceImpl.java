@@ -42,12 +42,24 @@ public class BookServiceImpl implements BookService {
         Optional<Book> book = this.bookCrudRepository.findBookByTitleAndPublishingHouse(oldTitle, oldPublishingHouse);
         if(book.isPresent()) {
             Book bookObj = book.get();
-            bookObj.setTitle(newBook.getTitle());
-            bookObj.setAuthor(newBook.getAuthor());
-            bookObj.setPublishingHouse(newBook.getPublishingHouse());
-            bookObj.setDescription(newBook.getDescription());
-            bookObj.setCategory(newBook.getCategory());
-            bookObj.setCover(newBook.getCover());
+            if(newBook.getTitle() != null) {
+                bookObj.setTitle(newBook.getTitle());
+            }
+            if(newBook.getAuthor() != null) {
+                bookObj.setAuthor(newBook.getAuthor());
+            }
+            if(newBook.getPublishingHouse() != null) {
+                bookObj.setPublishingHouse(newBook.getPublishingHouse());
+            }
+            if(newBook.getDescription() != null) {
+                bookObj.setDescription(newBook.getDescription());
+            }
+            if(newBook.getCategory() != null) {
+                bookObj.setCategory(newBook.getCategory());
+            }
+            if(newBook.getCover() != null) {
+                bookObj.setCover(newBook.getCover());
+            }
             this.bookCrudRepository.save(bookObj);
         }
     }
