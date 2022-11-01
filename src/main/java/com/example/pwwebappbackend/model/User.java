@@ -27,10 +27,11 @@ public class User {
     )
     @Column(nullable = false, updatable = false)
     private Long user_uuid;
-
+    @Column(unique = true)
     private String username;
     private String firstname;
     private String lastname;
+    @Column(unique = true)
     private String email;
     private String password;
     private UserRole userRole;
