@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @Entity
 @Table(name = "model_user")
@@ -36,7 +35,7 @@ public class User {
     private String password;
     private UserRole userRole;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(
             name="user_favourite",
             joinColumns = @JoinColumn( name="user_uuid"),
@@ -44,4 +43,21 @@ public class User {
     )
     @JsonIgnore
     private List<Book> favourite;
+
+    public void addToFavourites(Book book) {
+        this.favourite.add(book);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_uuid=" + user_uuid +
+                ", username='" + username + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", userRole=" + userRole +
+                '}';
+    }
 }
