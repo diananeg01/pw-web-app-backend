@@ -3,6 +3,7 @@ package com.example.pwwebappbackend.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +33,7 @@ public class Book {
     private String description;
     private String category;
     private String cover;
+
+    @ManyToMany
+    private List<User> user;
 }

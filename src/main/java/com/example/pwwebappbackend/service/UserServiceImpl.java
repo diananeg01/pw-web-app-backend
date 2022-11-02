@@ -34,8 +34,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User register(User newUser) {
-        newUser.setPassword(encodePassword(newUser.getPassword()));
+    public User register(String username, String email, String password) {
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPassword(encodePassword(password));
         newUser.setUserRole(UserRole.READER);
         return this.userCrudRepository.save(newUser);
     }
@@ -81,7 +84,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void addFavourite(String username, Book book) {
         User user = this.getUserByUsername(username).get();
-        user.getFavourite().add(book);
+        user.addToFavourites(book);
         this.userCrudRepository.save(user);
     }
 
