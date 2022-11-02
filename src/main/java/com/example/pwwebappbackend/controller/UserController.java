@@ -20,8 +20,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(path = "/register")
-    public ResponseEntity<User> register(@RequestBody User newUser) {
-        User user = this.userService.register(newUser);
+    public ResponseEntity<User> register(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
+        User user = this.userService.register(username, email, password);
         if(user != null){
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } else {
@@ -56,13 +56,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(path = "user/{username}/add-favourites")
+    @PostMapping(path = "/user/{username}/add-favourites")
     public ResponseEntity<?> addFavourite(@PathVariable String username, @RequestBody Book book){
         userService.addFavourite(username, book);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(path = "user/{username}/favourites")
+    @GetMapping(path = "/user/{username}/favourites")
     public ResponseEntity<List<Book>> getFavourite(@PathVariable String username){
         return new ResponseEntity<>(userService.getFavourite(username), HttpStatus.OK);
     }
